@@ -35,7 +35,7 @@ export class DetailComponent implements OnInit {
     this.route.paramMap
       .switchMap((params: ParamMap) => params.getAll('productID'))
       .subscribe(productID => {
-        // this.productID = productID;
+        this.productID = productID;
         // console.log(this.productID)
         this.service
           .getProduct(productID)
@@ -52,7 +52,11 @@ export class DetailComponent implements OnInit {
 
   onAdd() {
     const cart = new CartModel(this.selectedSize, this.selectedQty, this.productID);
-
+    console.log(this.userAccountService.user);
+    if ( !this.selectedSize || !this.selectedQty ) {
+      alert('You nissed something');
+      return;
+    }
     this.userAccountService.addProductToCart(cart)
       .subscribe(
         data => console.log(data),

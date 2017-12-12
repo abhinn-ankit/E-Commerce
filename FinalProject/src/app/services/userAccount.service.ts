@@ -9,7 +9,6 @@ import {CartModel} from '../models/cart';
 @Injectable()
 export class UserAccountService {
   user: UserAccount;
-  cart: CartModel[];
   constructor(private http: HttpClient) {
   }
 
@@ -46,22 +45,16 @@ export class UserAccountService {
 
   addProductToCart(cart: CartModel) {
     const body = JSON.stringify(cart);
+    console.log(body);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-    return this.http.patch<CartResponse>('http://localhost:3000/user/cart/' + token, body, {headers: headers})
-      .map((result) => {
-        console.log(this.user);
-        return result.obj;
-        // const msg =  new Message(
-        //   result.obj.content,
-        //   result.obj.user.firstName,
-        //   result.obj._id,
-        //   result.obj.user._id);
-        // this.messages.push(msg);
-        // return msg;
+    return this.http.patch<CartResponse>('http://localhost:3000/user/cart/a' + token, body, {headers: headers})
+      .map( result => {
+        console.log(result);
+        return result;
       })
       .catch(error => {
-        console.log(error.error);
+        console.error(error.error);
         return Observable.throw(error.error);
       });
   }
@@ -69,5 +62,5 @@ export class UserAccountService {
 
 interface CartResponse {
   message: string;
-  obj: Array<CartModel>;
+  obj: CartModel;
 }

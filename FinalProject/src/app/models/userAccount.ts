@@ -5,6 +5,7 @@ export class UserAccount {
               public password: string,
               public firstName?: string,
               public lastName?: string,
-              public cart?: [CartModel]) {
+              public cart?: CartModel[],
+              public orderList?: number[]) {
   }
 }
