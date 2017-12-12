@@ -6,7 +6,7 @@
 
           <div class="preview-pic tab-content">
             <div class="tab-pane active" id="pic-1">
-              <img src="{{this.product.itemList.color[0].url}}"/></div>
+              <img src="{{this.product?.itemList.color[0].url}}"/></div>
           </div>
         </div>
         <div class="details col-md-6">
@@ -16,7 +16,7 @@
           <h4 class="price">current price: <span>{{product?.itemList.price[selectedSize]}}</span></h4>
           <p class="product-size">Size:
             <span>
-            <select name="size-type" class="product-size" style="width:60px;" [(ngModel)]="selectedSize" (ngModelChange)="changeSize($event)" required>
+            <select name="size-type" class="product-size" style="width:60px;" [ngModel]="selectedSize" (ngModelChange)="changeSize($event)" required>
                 <option value="">Please choose</option>
                 <option *ngFor="let item of size" [value]='item'>{{item}}</option>
             </select>
@@ -24,7 +24,7 @@
           </p>
           <p class="product-quantity">Quantity:
             <span>
-            <input type="number" class="form-control text-center product-qty" style="width:60px;" value="1">
+            <input type="number" class="form-control text-center product-qty" style="width:60px;" value="1" [(ngModel)]="selectedQty">
           </span>
           </p>
           <div class="action">

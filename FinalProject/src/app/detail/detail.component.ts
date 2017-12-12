@@ -16,6 +16,7 @@ export class DetailComponent implements OnInit {
   productID: string;
   product: Product;
   selectedSize: string;
+  selectedQty: number;
   size: string[]=["s","m","l","xl"];
 
   constructor(
@@ -42,11 +43,6 @@ export class DetailComponent implements OnInit {
             console.log(this.product)            
           })
       })
-  }
-
-  changeUrl(url) {
-    this.selectedUrl = url;
-    console.log(this.selectedSize);
   }
 
   changeSize(size) {
