@@ -12,6 +12,7 @@ import {CheckoutComponentComponent} from './checkout-component/checkout-componen
 import {PaymentComponent} from './payment/payment.component';
 import {AccountComponent} from './account-component/account-component.component';
 import {DetailComponent} from './detail/detail.component';
+import { AuthService } from './services/auth.service';
 
 const appRoutes: Routes = [
   {
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'cart',
-    component: CartComponent
+    component: CartComponent,
+    canActivate:[AuthService]
   },
   {
     path: 'checkout',

@@ -17,7 +17,7 @@ export class ItemComponentComponent implements OnInit {
   products: Product[] = [];
   type: string;
   filter: string;
-
+  searchName: string;
     constructor(
       private route: ActivatedRoute,
       private router: Router,
@@ -26,6 +26,23 @@ export class ItemComponentComponent implements OnInit {
     ngOnInit(): void {
       // this.type = this.route.snapshot.params["productType"]
       // console.log(this.type);
+      this.route.queryParams.subscribe(params=> {
+        this.searchName = params['name'];
+        console.log(params);
+        this.productService
+            .getProducts()
+            .subscribe(products =>
+              {
+                if(this.searchName !== undefined){
+                  this.products = [];
+                  for(let i=0;i<products.length;i++){
+                    if(products[i].name.toLowerCase().includes(this.searchName.toLowerCase()) )
+                      this.products.push(products[i]);
+                  }
+                }
+              })
+      })
+
       this.route.paramMap
       .switchMap((params: ParamMap) => params.getAll('productType'))
       .subscribe(productType =>
