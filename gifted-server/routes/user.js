@@ -71,14 +71,21 @@ router.patch('/cart/:id', function (req, res, next) {
                     error: err
                 });
             }
-            Product.forEach(function (product) {
-                if( req.params.id === product._id) {
-                    user.cart.push(req.params.id);
-                }
+            const cart = req.body.cart;
+            cart.forEach(function (c) {
+                user.cart.forEach(function (uc) {
+                    if ( uc.productId === c.productId && uc.size === c.size ) {
+                        uc.qty = uc.qty + c.qty;
+                        return res.status(201).json({
+                            message: 'Successfully updated product in cart',
+                            obj: uc
+                        });
+                    }
+                });
             });
             return res.status(201).json({
                 message: 'Successfully added in cart',
-                obj: user.cart
+                obj: cart
             });
         });
     });

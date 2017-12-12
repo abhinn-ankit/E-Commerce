@@ -1,5 +1,5 @@
-export interface CartModel {
-  size: string;
-  qty: number;
-  productId: string;
+export class CartModel {
+  constructor(public size: string,
+              public qty: number,
+              public productId: string) {}
 }
