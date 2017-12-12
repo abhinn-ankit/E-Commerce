@@ -21,9 +21,11 @@ export class LoginComponentComponent implements OnInit {
     this.userAccountService.signIn(user)
       .subscribe(
         data => {
+          console.log(data);
           localStorage.setItem('token', data.token);
-          localStorage.setItem('userId', data.userId);
-          this.router.navigateByUrl('/');
+          localStorage.setItem('user', JSON.stringify(data.user));
+          this.userAccountService.user = JSON.parse(localStorage.getItem('user'));
+          window.location.replace('/home');
         },
         error => console.error(error)
       );
@@ -38,8 +40,16 @@ export class LoginComponentComponent implements OnInit {
       this.RegisterForm.value.lastName
     );
     this.userAccountService.signUp(user).subscribe(
-      data => console.log(data),
-      error => console.log(error)
+      result => this.userAccountService.signIn(result).subscribe(
+        data => {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          this.userAccountService.user = result.user;
+          window.location.replace('/home');
+        },
+        error => console.error(error)
+      ),
+      error => console.error(error)
     );
     this.RegisterForm.reset();
   }

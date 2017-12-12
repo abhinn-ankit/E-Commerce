@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component,  OnInit} from '@angular/core';
 import {UserAccountService} from '../services/userAccount.service';
 import {Router} from '@angular/router';
+import {SharedService} from '../services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,21 @@ import {Router} from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  userName: string;
+  searchResult: string;
+  cartCount: string;
 
-  searchResult:string;
-
-  constructor(private userAccountService: UserAccountService, private router: Router) {
+  constructor(private userAccountService: UserAccountService, private router: Router, private sharedService: SharedService) {
+    sharedService.changeEmitted$.subscribe();
   }
 
   ngOnInit() {
+    if ( this.userAccountService.isLoggedIn() ) {
+      console.log(this.userAccountService.user);
+      this.userName = this.userAccountService.user.firstName + ' ' + this.userAccountService.user.lastName;
+    }else if ( !this.userAccountService.isLoggedIn() ) {
+      this.userName = 'My account';
+    }
   }
   // noinspection TsLint
   btnAnimation = false;
@@ -50,7 +59,8 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     this.userAccountService.logOut();
-    this.router.navigate(['/home']);
+    this.userName = 'My account';
+    window.location.replace('/home');
   }
 
 }

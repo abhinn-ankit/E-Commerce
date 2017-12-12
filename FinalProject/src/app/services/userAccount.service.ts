@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UserAccountService {
+  user: UserAccount;
   constructor(private http: HttpClient) {
   }
 
@@ -17,7 +18,11 @@ export class UserAccountService {
     console.log(body);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post(this.url, body, {headers: headers})
-      .catch(error => Observable.throw(error));
+      .map( result => {
+        console.log(result);
+        return user;
+      })
+      .catch(error => Observable.throw(error.error));
   }
 
   signIn(user: UserAccount) {
@@ -25,7 +30,7 @@ export class UserAccountService {
     const signin = '/signin';
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post(`${this.url}${signin}`, body, {headers: headers})
-      .catch(error => Observable.throw(error));
+      .catch(error => Observable.throw(error.error));
   }
 
   logOut() {
@@ -33,6 +38,7 @@ export class UserAccountService {
   }
 
   isLoggedIn() {
+    this.user = JSON.parse(localStorage.getItem('user'));
     return localStorage.getItem('token') !== null;
   }
 

@@ -46,7 +46,7 @@
                 <a class="nav-link text-uppercase text-center text-md-left"
                     id="dropdown-user"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span>MY ACCOUNT</span>
+                  <span>{{ this.userName }}</span>
                   <img class="hide-sm-img" src="../../assets/images/icon-account.svg">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdown-user">
@@ -58,7 +58,7 @@
               <li class="nav-item" (click)="showSearchBar()"><a class="nav-link text-uppercase hide-sm-link"><span>SEARCH</span><img
                 src="../../assets/images/icon-search.svg"></a></li>
               <li class="nav-item"><a [routerLink]="['cart']" class="nav-link text-uppercase hide-sm-link"><span>BAG(<span
-                class="cart-count">0</span>)</span><img src="../../assets/images/icon-bag.svg" alt=""></a></li>
+                class="cart-count">{{ this.cartCount }}</span>)</span><img src="../../assets/images/icon-bag.svg" alt=""></a></li>
             </ul>
           </div><!-- navbar-right -->
         </div><!-- mainNavbar -->
