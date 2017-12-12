@@ -19,6 +19,7 @@ export class DetailComponent implements OnInit {
   product: Product;
   selectedSize: string;
   selectedQty: number;
+
   size: string[] = ['s', 'm', 'l', 'xl'];
 
   constructor(private route: ActivatedRoute,
