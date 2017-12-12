@@ -58,7 +58,7 @@
               <li class="nav-item" (click)="showSearchBar()"><a class="nav-link text-uppercase hide-sm-link"><span>SEARCH</span><img
                 src="../../assets/images/icon-search.svg"></a></li>
               <li class="nav-item"><a [routerLink]="['cart']" class="nav-link text-uppercase hide-sm-link"><span>BAG(<span
-                class="cart-count">{{ this.cartCount }}</span>)</span><img src="../../assets/images/icon-bag.svg" alt=""></a></li>
+                class="cart-count">{{ this.cartCount ? this.cartCount : 0 }}</span>)</span><img src="../../assets/images/icon-bag.svg" alt=""></a></li>
             </ul>
           </div><!-- navbar-right -->
         </div><!-- mainNavbar -->

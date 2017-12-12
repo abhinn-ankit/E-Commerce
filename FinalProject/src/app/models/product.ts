@@ -10,20 +10,20 @@ export class Product {
 
 export interface Item {
 
-    size:{
+    size: {
         s: Number;
         m: Number;
         l: Number;
         xl: Number;
-    },
+    };
     color: [{
         url: string;
         name: string;
-    }],
+    }];
     price: {
         s: Number;
         m: Number;
         l: Number;
         xl: Number;
-    }
+    };
 }

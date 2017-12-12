@@ -19,7 +19,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     if ( this.userAccountService.isLoggedIn() ) {
-      console.log(this.userAccountService.user);
       this.userName = this.userAccountService.user.firstName + ' ' + this.userAccountService.user.lastName;
     }else if ( !this.userAccountService.isLoggedIn() ) {
       this.userName = 'My account';

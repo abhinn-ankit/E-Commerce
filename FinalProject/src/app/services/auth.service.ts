@@ -1,12 +1,13 @@
-import { Injectable }     from '@angular/core';
-import { CanActivate }    from '@angular/router';
-import { UserAccountService } from './userAccount.service';
+import {Injectable} from '@angular/core';
+import {CanActivate} from '@angular/router';
+import {UserAccountService} from './userAccount.service';
 
 @Injectable()
 export class AuthService implements CanActivate {
-    constructor(service:UserAccountService){}
-    
-    canActivate() {
-        return localStorage.getItem('token') !== null;
-    }
+  constructor(private service: UserAccountService) {
+  }
+
+  canActivate() {
+    return localStorage.getItem('token') !== null;
+  }
 }

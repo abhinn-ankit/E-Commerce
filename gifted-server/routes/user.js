@@ -78,7 +78,7 @@ router.patch('/cart/:id', function (req, res, next) {
             });
             return res.status(201).json({
                 message: 'Successfully added in cart',
-                obj: user
+                obj: user.cart
             });
         });
     });

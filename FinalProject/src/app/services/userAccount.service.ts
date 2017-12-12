@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {UserAccount} from '../models/userAccount';
 import {HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {Product} from '../models/product';
+import {CartModel} from '../models/cart';
 
 @Injectable()
 export class UserAccountService {
@@ -42,4 +44,30 @@ export class UserAccountService {
     return localStorage.getItem('token') !== null;
   }
 
+  addProductToCart(product: Product) {
+    const body = JSON.stringify(product);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+    return this.http.patch<CartResponse>('http://localhost:3000/user/cart/' + product._id + token, body, {headers: headers})
+      .map((result) => {
+        console.log(this.user);
+        return result.obj;
+        // const msg =  new Message(
+        //   result.obj.content,
+        //   result.obj.user.firstName,
+        //   result.obj._id,
+        //   result.obj.user._id);
+        // this.messages.push(msg);
+        // return msg;
+      })
+      .catch(error => {
+        console.log(error.error);
+        return Observable.throw(error.error);
+      });
+  }
+}
+
+interface CartResponse {
+  message: string;
+  obj: Array<CartModel>;
 }

@@ -4,6 +4,7 @@ import { ProductService } from '../services/product.service';
 
 import 'rxjs/add/operator/switchMap';
 import { Product } from '../models/product';
+import {UserAccountService} from "../services/userAccount.service";
 
 @Component({
   selector: 'app-detail',
@@ -16,13 +17,15 @@ export class DetailComponent implements OnInit {
   product: Product;
   selectedSize: string;
   selectedColor: string;
-  size: string[]=["s","m","l","xl"];
+  selectedUrl: string;
+  size: string[]= ['s', 'm', 'l', 'xl'];
   color: object[];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: ProductService
+    private service: ProductService,
+    private userAccountService: UserAccountService
   ) { }
 
   ngOnInit() {
@@ -36,15 +39,34 @@ export class DetailComponent implements OnInit {
         // console.log(this.productID)
         this.service
         .getProduct(productID)
-        .subscribe(product => 
+        .subscribe(product =>
           {
             this.product = product;
             this.color = product.itemList.color;
             console.log(this.color);
-            console.log(this.product)            
-          })
-      })
+            console.log(this.product);
+          });
+      });
   }
 
+  changeUrl(url) {
+    this.selectedUrl = url;
+    console.log(this.selectedSize);
+  }
+
+  changeSize(size) {
+    this.selectedSize = size;
+  }
+
+  onAdd() {
+    this.userAccountService.addProductToCart(this.product)
+      .subscribe(
+        data => {
+
+        },
+        error => console.error(error)
+      );
+
+  }
 
 }

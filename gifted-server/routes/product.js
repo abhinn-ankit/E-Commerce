@@ -37,7 +37,7 @@ router.get('/:id', function (req, res, next) {
         }
         res.status(200).json({
             message: 'Product Found',
-            obj: result
+            obj: product
         });
     });
 });

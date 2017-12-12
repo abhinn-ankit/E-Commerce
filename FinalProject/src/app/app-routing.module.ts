@@ -11,7 +11,7 @@ import {ViewOrderComponent} from './view-order/view-order.component';
 import {CheckoutComponentComponent} from './checkout-component/checkout-component.component';
 import {PaymentComponent} from './payment/payment.component';
 import {DetailComponent} from './detail/detail.component';
-import { AuthService } from './services/auth.service';
+import {AuthService} from './services/auth.service';
 
 const appRoutes: Routes = [
   {
@@ -29,9 +29,27 @@ const appRoutes: Routes = [
     component: ItemComponentComponent,
   },
   {
+    path: 'products',
+    children: [
+      {
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full'
+      },
+      {
+        path: ':productType',
+        component: ItemComponentComponent
+      },
+      {
+        path: ':productType/:productID',
+        component: DetailComponent
+      },
+    ]
+  },
+  {
     path: 'cart',
     component: CartComponent,
-    canActivate:[AuthService]
+    canActivate: [AuthService]
   },
   {
     path: 'checkout',
@@ -61,19 +79,6 @@ const appRoutes: Routes = [
         path: 'orderID',
         component: ViewOrderComponent
       }
-    ]
-  },
-  {
-    path: 'products',
-    children: [
-      {
-        path: ':productType',
-        component: ItemComponentComponent
-      },
-      {
-        path: ':productType/:productID',
-        component: DetailComponent
-      },
     ]
   },
 

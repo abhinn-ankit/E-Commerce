@@ -10,7 +10,7 @@ let orderSchema = new Schema({
     productList: [{
         size: String,
         qty: Number,
-        product: {
+        productId: {
             type: Schema.Types.ObjectId,
             ref: 'Product'
         }
