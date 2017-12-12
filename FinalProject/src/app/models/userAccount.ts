@@ -5,6 +5,10 @@ export class UserAccount {
               public password: string,
               public firstName?: string,
               public lastName?: string,
-              public cart?: Array<Product>) {
-  }
+              public cart?: [{
+                size:string;
+                qty: number;
+                productID: string;
+              }]
+          ){}
 }

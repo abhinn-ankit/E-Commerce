@@ -15,9 +15,7 @@ export class DetailComponent implements OnInit {
   productID: string;
   product: Product;
   selectedSize: string;
-  selectedColor: string;
   size: string[]=["s","m","l","xl"];
-  color: object[];
 
   constructor(
     private route: ActivatedRoute,
@@ -39,8 +37,6 @@ export class DetailComponent implements OnInit {
         .subscribe(product => 
           {
             this.product = product;
-            this.color = product.itemList.color;
-            console.log(this.color);
             console.log(this.product)            
           })
       })

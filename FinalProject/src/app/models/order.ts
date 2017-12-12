@@ -5,7 +5,7 @@ export class Order {
         public productList: [{
             size:string;
             qty: number;
-            product: Product;
+            productId: string;
         }],        
         public orderDate: Date,
         public userAccountID: string,

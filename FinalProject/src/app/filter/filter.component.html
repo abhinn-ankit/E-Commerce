@@ -13,8 +13,8 @@
         <hr>
         <div id="name" class="collapse show" role="tabpanel">
       <ol >
-      <li ><input type="checkbox" class="name-ascending"><span class="font-italic">  A to Z</span></li>
-      <li><input type="checkbox" class="name-descending"><span class="font-italic" >  Z to A</span></li>  
+      <li ><input type="checkbox" class="name-ascending" (click)="selectedName=$event.target.value;ascendName()"><span class="font-italic">  A to Z</span></li>
+      <li><input type="checkbox" class="name-descending" (click)="selectedName=$event.target.value;descendName()"><span class="font-italic" >  Z to A</span></li>  
     </ol>
         </div>
       </div>
