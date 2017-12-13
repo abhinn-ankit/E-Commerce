@@ -10,24 +10,25 @@ import { Product } from '../models/product';
 })
 export class CartComponent implements OnInit {
 
-  public cart: [{
-    size: string,
-    qty: number,
-    productId: string
-  }];
-  public products: [Product];
+  products: Product[]=[];
 
-  constructor(private productService:ProductService) {}
+  constructor(private productService: ProductService, private authService:UserAccountService) {}
 
   ngOnInit() {
-    
-    this.cart = JSON.parse(localStorage.getItem('user')).cart;  
-    console.log(this.cart);
-    // this.cart.forEach(function(item, index){
+    // this.authService.getCurrentUser();
+    // this.authService.user.cart.forEach(function(item){
     //   this.productService
     //       .getProduct(item.productId)
     //       .subscribe(product => this.products.push(product))     
-    // })
+    // });
+    this.productService
+          .getProducts()
+          .subscribe(products => {
+            for(let j=0;j<this.authService.user.cart.length;j++){
+              for(let i=0;i<products.length;i++)
+                if(products[i].productId===this.authService.user.cart[j].productId)
+                  this.products.push(products[i])
+            }
+          })
   }
-
 }
