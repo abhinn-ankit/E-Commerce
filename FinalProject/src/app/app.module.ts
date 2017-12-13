@@ -22,7 +22,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserAccountService} from './services/userAccount.service';
 import { AuthService } from './services/auth.service';
 import {SharedService} from './services/shared.service';
-import {CartService} from './services/cart.service';
 
 
 @NgModule({
@@ -50,7 +49,7 @@ import {CartService} from './services/cart.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ProductService, UserAccountService, AuthService, SharedService, CartService],
+  providers: [ProductService, UserAccountService, AuthService, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

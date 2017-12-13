@@ -113,12 +113,53 @@ router.post('/order/:id', function (req, res, next) {
                     error: err
                 });
             }
-            user.order.push(order);
-            user.save();
-            console.log(user);
-            return res.status(201).json({
-                message: 'Successfully added in cart',
-                obj: cart
+            const order = new Order({
+                productList: req.body.productList,
+                orderDate: req.body.orderDate,
+                userAccountID: req.body.userAccountID,
+                receiverName: req.body.receiverName,
+                contactNumber: req.body.contactNumber,
+                state: req.body.state,
+                zipCode: req.body.zipCode,
+                addressLine1: req.body.addressLine1,
+                addressLine2: req.body.addressLine1
+            });
+            order.save(function (err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    });
+                }
+                user.orderList.push(result._id);
+                user.save();
+                return res.status(201).json({
+                    message: 'Successfully added in cart',
+                    obj: result
+                });
+            });
+        });
+    });
+});
+
+router.get('/:id', function (req, res, next) {
+    jwt.verify(req.query.token, 'secret', function (err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not Authenicated',
+                error: err
+            });
+        }
+        User.findById(decoded.user._id, function (err, user) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            res.status(201).json({
+                message: 'Current User',
+                obj: user
             });
         });
     });

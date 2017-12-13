@@ -5,8 +5,7 @@ import {ProductService} from '../services/product.service';
 import 'rxjs/add/operator/switchMap';
 import {Product} from '../models/product';
 import {UserAccountService} from '../services/userAccount.service';
-import {CartService} from '../services/cart.service';
-import {CartModel} from "../models/cart";
+import {CartModel} from '../models/cart';
 
 @Component({
   selector: 'app-detail',
@@ -25,8 +24,7 @@ export class DetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private service: ProductService,
-              private userAccountService: UserAccountService,
-              private cartService: CartService) {
+              private userAccountService: UserAccountService) {
   }
 
   ngOnInit() {
@@ -51,6 +49,7 @@ export class DetailComponent implements OnInit {
   }
 
   onAdd() {
+    this.userAccountService.getCurrentUser();
     const cart = new CartModel( this.selectedSize, this.selectedQty, this.productID );
     console.log(this.userAccountService.user);
     if ( !this.selectedSize || !this.selectedQty ) {
@@ -61,7 +60,7 @@ export class DetailComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.cartService.updateCart(data.obj);
+          this.userAccountService.updateCart(data.obj);
         },
         error => console.error(error)
       );

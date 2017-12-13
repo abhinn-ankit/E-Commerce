@@ -39,7 +39,6 @@ export class UserAccountService {
   }
 
   isLoggedIn() {
-    this.user = JSON.parse(localStorage.getItem('user'));
     return localStorage.getItem('token') !== null;
   }
 
@@ -47,7 +46,7 @@ export class UserAccountService {
     const body = JSON.stringify(cart);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-    return this.http.patch<CartResponse>('http://localhost:3000/user/cart/a' + token, body, {headers: headers})
+    return this.http.patch<CartResponse>(`${this.url}/cart/a` + token, body, {headers: headers})
       .map(result => {
         console.log(result);
         console.log(this.user);
@@ -58,6 +57,43 @@ export class UserAccountService {
         return Observable.throw(error.error);
       });
   }
+
+  getCurrentUser() {
+    const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+    return this.http.get<UserResponse>(`${this.url}/getUser` + token)
+      .map(data => {
+        localStorage.setItem('user', JSON.stringify(data.obj));
+        this.user = data.obj;
+      })
+      .catch(error => {
+        console.error(error.error);
+        return Observable.throw(error.error);
+      });
+  }
+
+  updateCart(cart) {
+    console.log(this.user['cart']);
+    let differentProduct = true;
+    if (this.user['cart'].length >= 0) {
+      this.user.cart.forEach(function (c) {
+        if (cart.productId == c.productId && cart.size == c.size && differentProduct) {
+          c.qty = cart.qty;
+          console.log('It should return');
+          differentProduct = false;
+          return;
+        }
+      });
+    }
+    console.log(this.user);
+    if (differentProduct)
+      this.user.cart.push(cart);
+  }
+
+}
+
+interface UserResponse {
+  message: string;
+  obj: UserAccount;
 }
 
 interface CartResponse {

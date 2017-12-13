@@ -1,5 +1,5 @@
 <div class="container mb-5">
-    <app-filter (ratesRequest)="search($event)"></app-filter>
+  <app-filter (ratesRequest)="search($event)"></app-filter>
 <div class="row">
   <div *ngFor="let product of products" class="col-lg-3 col-md-4 col-sm-6 d-flex flex-column" style="flex:auto">
     <img class="card-img-top img-type mt-5" src="{{product.itemList.color[0].url}}"
@@ -7,7 +7,7 @@
     <div class="card-block d-flex flex-column" style="flex-grow: inherit">
       <h4 class="card-title">{{product.name}}</h4>
       <p class="card-text mb-5">{{product.description}}</p>
-      <a [routerLink]="['/products', product.type, product._id]" class="mt-auto text-left">                    
+      <a [routerLink]="['/products', product.type, product._id]" class="mt-auto text-left">
         <button class="addtocart" name="addtocart" type="submit" class="btn btn-success center">View details</button>
       </a>
     </div>

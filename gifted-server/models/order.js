@@ -14,7 +14,6 @@ let orderSchema = new Schema({
             ref: 'Product'
         }
     }],
-    user: {type: Schema.Types.ObjectId, ref:'User'},
     orderDate: {
         type: String,
         required: true
