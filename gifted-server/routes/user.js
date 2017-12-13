@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const bCrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const async = require('async');
 
 const User = require('../models/user');
+const Cart = require('../models/cartItem');
 const Product = require('../models/product');
 
 router.post('/', function (req, res, next) {
@@ -35,7 +37,7 @@ router.post('/signin', function (req, res, next) {
                 error: err
             });
         }
-        if(!user) {
+        if (!user) {
             return res.status(401).json({
                 title: 'Login failed',
                 error: {message: 'Invalid login credentials'}
@@ -71,17 +73,33 @@ router.patch('/cart/:id', function (req, res, next) {
                     error: err
                 });
             }
-            Product.forEach(function (product) {
-                if( req.params.id === product._id) {
-                    user.cart.push(req.params.id);
-                }
+            const cart = new Cart({
+                size: req.body.size,
+                qty: req.body.qty,
+                productId: req.body.productId
             });
+            console.log(user.cart.size);
+            for (let i = 0; i < user.cart.size; i++) {
+                let uc = user.cart[i];
+                console.log(uc);
+                if (uc.productId.equals(cart.productId) && uc.size.equals(cart.size)) {
+                    uc.qty = uc.qty + cart.qty;
+                    return res.status(201).json({
+                        message: 'Successfully updated product in cart',
+                        obj: uc
+                    });
+                }
+            }
+            user.cart.push(cart);
+            user.save();
+            console.log(user);
             return res.status(201).json({
                 message: 'Successfully added in cart',
-                obj: user.cart
+                obj: cart
             });
         });
     });
-});
+})
+;
 
 module.exports = router;

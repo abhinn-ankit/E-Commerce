@@ -28,8 +28,12 @@ let userSchema = new Schema({
         }
     }],
     cart: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Product'
+        size: String,
+        qty: Number,
+        productId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Product'
+        }
     }]
 });
 

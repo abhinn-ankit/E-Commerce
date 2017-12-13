@@ -21,11 +21,11 @@ export class LoginComponentComponent implements OnInit {
     this.userAccountService.signIn(user)
       .subscribe(
         data => {
-          console.log(data);
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
           this.userAccountService.user = JSON.parse(localStorage.getItem('user'));
           window.location.replace('/home');
+          // this.router.navigateByUrl('/');
         },
         error => console.error(error)
       );
@@ -44,8 +44,9 @@ export class LoginComponentComponent implements OnInit {
         data => {
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
-          this.userAccountService.user = result.user;
-          window.location.replace('/home');
+          this.userAccountService.user = result;
+          // window.location.replace('/home');
+          this.router.navigateByUrl('/');
         },
         error => console.error(error)
       ),
