@@ -1,4 +1,4 @@
-import {Component,  OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserAccountService} from '../services/userAccount.service';
 import {Router} from '@angular/router';
 import {SharedService} from '../services/shared.service';
@@ -11,20 +11,22 @@ import {SharedService} from '../services/shared.service';
 export class HeaderComponent implements OnInit {
   userName: string;
   searchResult: string;
-  cartCount: string;
 
-  constructor(private userAccountService: UserAccountService, private router: Router, private sharedService: SharedService) {
+  constructor(private userAccountService: UserAccountService,
+              private router: Router,
+              private sharedService: SharedService) {
     sharedService.changeEmitted$.subscribe();
   }
 
   ngOnInit() {
     this.userAccountService.user = JSON.parse(localStorage.getItem('user'));
-    if ( this.userAccountService.isLoggedIn() ) {
+    if (this.userAccountService.isLoggedIn()) {
       this.userName = this.userAccountService.user.firstName + ' ' + this.userAccountService.user.lastName;
-    }else if ( !this.userAccountService.isLoggedIn() ) {
+    } else if (!this.userAccountService.isLoggedIn()) {
       this.userName = 'My account';
     }
   }
+
   // noinspection TsLint
   btnAnimation = false;
   // noinspection TsLint
