@@ -85,6 +85,7 @@ export class UserAccountService {
       });
     }
     console.log(this.user);
+    console.log(differentProduct);
     if (differentProduct)
       this.user.cart.push(cart);
   }

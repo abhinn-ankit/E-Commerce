@@ -11,6 +11,7 @@ import { Product } from '../models/product';
 export class CartComponent implements OnInit {
 
   products: Product[]=[];
+  subtotal: number;
 
   constructor(private productService: ProductService, private authService:UserAccountService) {}
 
