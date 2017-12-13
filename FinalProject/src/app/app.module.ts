@@ -22,7 +22,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserAccountService} from './services/userAccount.service';
 import { AuthService } from './services/auth.service';
 import {SharedService} from './services/shared.service';
-import {CartService} from "./services/cart.service";
+import {CartService} from './services/cart.service';
 
 
 @NgModule({

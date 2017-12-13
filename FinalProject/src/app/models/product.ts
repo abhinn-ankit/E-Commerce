@@ -11,19 +11,19 @@ export class Product {
 export interface Item {
 
     size: {
-        s: Number;
-        m: Number;
-        l: Number;
-        xl: Number;
+        s: number;
+        m: number;
+        l: number;
+        xl: number;
     };
     color: [{
         url: string;
         name: string;
     }];
     price: {
-        s: Number;
-        m: Number;
-        l: Number;
-        xl: Number;
+        s: number;
+        m: number;
+        l: number;
+        xl: number;
     };
 }

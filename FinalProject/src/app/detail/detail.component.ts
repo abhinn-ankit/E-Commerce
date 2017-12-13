@@ -5,8 +5,8 @@ import {ProductService} from '../services/product.service';
 import 'rxjs/add/operator/switchMap';
 import {Product} from '../models/product';
 import {UserAccountService} from '../services/userAccount.service';
-import {CartModel} from '../models/cart';
 import {CartService} from '../services/cart.service';
+import {CartModel} from "../models/cart";
 
 @Component({
   selector: 'app-detail',
@@ -51,7 +51,7 @@ export class DetailComponent implements OnInit {
   }
 
   onAdd() {
-    const cart = new CartModel(this.selectedSize, this.selectedQty, this.productID);
+    const cart = new CartModel( this.selectedSize, this.selectedQty, this.productID );
     console.log(this.userAccountService.user);
     if ( !this.selectedSize || !this.selectedQty ) {
       alert('You missed something');
@@ -59,10 +59,13 @@ export class DetailComponent implements OnInit {
     }
     this.userAccountService.addProductToCart(cart)
       .subscribe(
-        data => console.log(data),
+        data => {
+          console.log(data);
+          this.cartService.updateCart(data.obj);
+        },
         error => console.error(error)
       );
-    this.cartService.updateCart(cart);
+    console.log(this.userAccountService.user);
   }
 
 }

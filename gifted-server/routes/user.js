@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 const bCrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const async = require('async');
 
+const Order = require('../models/order');
 const User = require('../models/user');
 const Cart = require('../models/cartItem');
-const Product = require('../models/product');
 
 router.post('/', function (req, res, next) {
     const user = new User({
@@ -79,10 +78,9 @@ router.patch('/cart/:id', function (req, res, next) {
                 productId: req.body.productId
             });
             for (let uc of user.cart) {
-                if (String(uc.productId) == String(cart.productId) && String(uc.size) == String(uc.size)) {
+                if (String(uc.productId) == String(cart.productId) && String(uc.size) == String(cart.size)) {
                     uc.qty = uc.qty + cart.qty;
-                    console.log(uc.qty);
-                    // user.save();
+                    user.save();
                     return res.status(201).json({
                         message: 'Successfully updated product in cart',
                         obj: uc
@@ -90,7 +88,7 @@ router.patch('/cart/:id', function (req, res, next) {
                 }
             }
             user.cart.push(cart);
-            // user.save();
+            user.save();
             console.log(user);
             return res.status(201).json({
                 message: 'Successfully added in cart',
@@ -98,7 +96,32 @@ router.patch('/cart/:id', function (req, res, next) {
             });
         });
     });
-})
-;
+});
+
+router.post('/order/:id', function (req, res, next) {
+    jwt.verify(req.query.token, 'secret', function (err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not Authenicated',
+                error: err
+            });
+        }
+        User.findById(decoded.user._id, function (err, user) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            user.order.push(order);
+            user.save();
+            console.log(user);
+            return res.status(201).json({
+                message: 'Successfully added in cart',
+                obj: cart
+            });
+        });
+    });
+});
 
 module.exports = router;

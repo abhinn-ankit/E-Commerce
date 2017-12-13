@@ -4,11 +4,11 @@ import {HttpClient} from '@angular/common/http';
 import {UserAccount} from '../models/userAccount';
 import {HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {CartModel} from '../models/cart';
 
 @Injectable()
 export class UserAccountService {
   user: UserAccount;
+
   constructor(private http: HttpClient) {
   }
 
@@ -19,7 +19,7 @@ export class UserAccountService {
     console.log(body);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post(this.url, body, {headers: headers})
-      .map( result => {
+      .map(result => {
         console.log(result);
         return user;
       })
@@ -43,15 +43,15 @@ export class UserAccountService {
     return localStorage.getItem('token') !== null;
   }
 
-  addProductToCart(cart: CartModel) {
+  addProductToCart(cart) {
     const body = JSON.stringify(cart);
-    console.log(body);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     return this.http.patch<CartResponse>('http://localhost:3000/user/cart/a' + token, body, {headers: headers})
-      .map( result => {
+      .map(result => {
         console.log(result);
-        return result.obj;
+        console.log(this.user);
+        return result;
       })
       .catch(error => {
         console.error(error.error);
@@ -62,5 +62,9 @@ export class UserAccountService {
 
 interface CartResponse {
   message: string;
-  obj: CartModel;
+  obj: {
+    size: string,
+    qty: string,
+    productId: string
+  };
 }

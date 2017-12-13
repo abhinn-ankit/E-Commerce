@@ -1,4 +1,3 @@
-import {CartModel} from './cart';
 
 export class UserAccount {
   constructor(public email: string,
