@@ -54,7 +54,7 @@ export class DetailComponent implements OnInit {
     const cart = new CartModel(this.selectedSize, this.selectedQty, this.productID);
     console.log(this.userAccountService.user);
     if ( !this.selectedSize || !this.selectedQty ) {
-      alert('You nissed something');
+      alert('You missed something');
       return;
     }
     this.userAccountService.addProductToCart(cart)

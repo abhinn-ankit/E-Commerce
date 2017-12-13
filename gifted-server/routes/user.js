@@ -78,12 +78,11 @@ router.patch('/cart/:id', function (req, res, next) {
                 qty: req.body.qty,
                 productId: req.body.productId
             });
-            console.log(user.cart.size);
-            for (let i = 0; i < user.cart.size; i++) {
-                let uc = user.cart[i];
-                console.log(uc);
-                if (uc.productId.equals(cart.productId) && uc.size.equals(cart.size)) {
+            for (let uc of user.cart) {
+                if (String(uc.productId) == String(cart.productId) && String(uc.size) == String(uc.size)) {
                     uc.qty = uc.qty + cart.qty;
+                    console.log(uc.qty);
+                    // user.save();
                     return res.status(201).json({
                         message: 'Successfully updated product in cart',
                         obj: uc
@@ -91,7 +90,7 @@ router.patch('/cart/:id', function (req, res, next) {
                 }
             }
             user.cart.push(cart);
-            user.save();
+            // user.save();
             console.log(user);
             return res.status(201).json({
                 message: 'Successfully added in cart',

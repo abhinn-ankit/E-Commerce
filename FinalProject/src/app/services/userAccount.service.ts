@@ -51,7 +51,7 @@ export class UserAccountService {
     return this.http.patch<CartResponse>('http://localhost:3000/user/cart/a' + token, body, {headers: headers})
       .map( result => {
         console.log(result);
-        return result;
+        return result.obj;
       })
       .catch(error => {
         console.error(error.error);

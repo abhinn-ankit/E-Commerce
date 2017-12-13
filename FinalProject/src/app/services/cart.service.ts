@@ -7,11 +7,12 @@ export class CartService {
   }
 
   updateCart(cart) {
-    console.log(this.userAccountService.user.cart);
-    if ( !this.userAccountService.user.cart ) {
+    console.log(this.userAccountService.user['cart'].length);
+    if ( this.userAccountService.user['cart'].length >= 0 ) {
       this.userAccountService.user.cart.forEach(function (c) {
-        if (cart.productId === c.productId && cart.size === c.size) {
-          c.qty = c.qty + cart.qty;
+        console.log(cart.productId == c.productId);
+        if (cart.productId == c.productId && cart.size === c.size) {
+          c.qty = cart.qty;
           return;
         }
       });

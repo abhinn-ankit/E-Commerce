@@ -2,7 +2,11 @@ import {CartModel} from './cart';
 
 export class Order {
   constructor(public id: string,
-              public productList: CartModel[],
+              public productList: [{
+                size: string,
+                qty: number,
+                productId: string
+              }],
               public orderDate: Date,
               public userAccountID: string,
               public receiverName: string,
