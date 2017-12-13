@@ -30,8 +30,11 @@ export class ItemComponentComponent implements OnInit {
     this.productService
     .getProducts()
     .subscribe(products => {
-      
-      if(selected.length!==0&&selected.findIndex(value => value === ('a'||'z'||'low'||'high')) == -1){
+      // &&selected.findIndex(value => (value === 'a')||(value === 'z')||(value === 'low')||(value === 'high')) == -1
+      if(selected.length===0||(selected.length===1&&selected.findIndex(value => (value === 'a')||(value === 'z')||(value === 'low')||(value === 'high')) != -1)){       
+        this.products = products;                
+      }else{
+        // console.log('Enter');
         for(let i=0;i<selected.length;i++){
           for(let j=0;j<products.length;j++){
             // console.log(`${products[j].rating}+${selected[i]}`);
@@ -40,18 +43,76 @@ export class ItemComponentComponent implements OnInit {
             }
           }
         }
-
-      }else{
-        this.products = products;        
       }
 
-      // products=products.sort();
+      
+      if(selected.findIndex(value => value === ('a')) != -1){
+            this.products=this.products.sort(this.sortNameA);
+            // for(let i=0;i<this.products.length;i++){
+            //   console.log(this.products[i].name.toLowerCase().charAt(0));
+            // }
+      }
+
+      if(selected.findIndex(value => value === ('z')) != -1){
+        this.products=this.products.sort(this.sortNameB);
+      }
+
+      if(selected.findIndex(value => value === ('low')) != -1){
+        this.products=this.products.sort(this.sortPriceA);
+        for(let i=0;i<this.products.length;i++){
+              console.log(this.products[i].itemList.price.s);
+            }
+      }
+
+      if(selected.findIndex(value => value === ('high')) != -1){
+        this.products=this.products.sort(this.sortPriceB);
+      }
+
     });
-    
+    }
+
+  sortNameA(a,b){
+      // console.log(a.name.toLowerCase().charAt(0));
+      let na=a.name.toLowerCase().charAt(0);
+      let nb=b.name.toLowerCase().charAt(0);
+      
+      if(na<nb)
+        return -1;
+      else if(na>nb)
+        return 1;
+      else return 0;
   }
 
-  sortName(a,b){
-    return 
+  sortNameB(a,b){
+    let na=a.name.toLowerCase().charAt(0);
+    let nb=b.name.toLowerCase().charAt(0);
+    
+    if(na>nb)
+      return -1;
+    else if(na<nb)
+      return 1;
+    else return 0;
+  }
+
+  sortPriceA(a,b){
+    let na=a.itemList.price.s;
+    let nb=b.itemList.price.s;
+    
+    if(na<nb)
+      return -1;
+    else if(na>nb)
+      return 1;
+    else return 0;
+  }
+  sortPriceB(a,b){
+    let na=a.itemList.price.s;
+    let nb=b.itemList.price.s;
+    
+    if(na>nb)
+      return -1;
+    else if(na<nb)
+      return 1;
+    else return 0;
   }
   ngOnInit(): void {
     // this.type = this.route.snapshot.params["productType"]
