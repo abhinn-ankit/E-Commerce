@@ -15,6 +15,7 @@ import * as moment from 'moment';
 export class ItemComponentComponent implements OnInit {
 
   products: Product[] = [];
+  searchproducts: Product[] = [];
   type: string;
   filter: string;
   searchName: string;
@@ -24,6 +25,34 @@ export class ItemComponentComponent implements OnInit {
               private productService: ProductService) {
   }
 
+  search(selected: string[]){
+    this.products=[];
+    this.productService
+    .getProducts()
+    .subscribe(products => {
+      
+      if(selected.length!==0&&selected.findIndex(value => value === ('a'||'z'||'low'||'high')) == -1){
+        for(let i=0;i<selected.length;i++){
+          for(let j=0;j<products.length;j++){
+            // console.log(`${products[j].rating}+${selected[i]}`);
+            if(products[j].rating===+selected[i]){
+              this.products.push(products[j]);
+            }
+          }
+        }
+
+      }else{
+        this.products = products;        
+      }
+
+      // products=products.sort();
+    });
+    
+  }
+
+  sortName(a,b){
+    return 
+  }
   ngOnInit(): void {
     // this.type = this.route.snapshot.params["productType"]
     // console.log(this.type);
