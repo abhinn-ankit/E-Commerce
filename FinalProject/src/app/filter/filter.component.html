@@ -13,8 +13,8 @@
         <hr>
         <div id="name" class="collapse show" role="tabpanel">
       <ol >
-      <li ><input type="checkbox" class="name-ascending" (click)="selectedName=$event.target.value;ascendName()"><span class="font-italic">  A to Z</span></li>
-      <li><input type="checkbox" class="name-descending" (click)="selectedName=$event.target.value;descendName()"><span class="font-italic" >  Z to A</span></li>  
+      <li ><input type="checkbox" class="name-ascending" [checked]="isCheck('a')" (click)="click($event,'a')"><span class="font-italic">  A to Z</span></li>
+      <li><input type="checkbox" class="name-descending" [checked]="isCheck('z')" (click)="click($event,'z')"><span class="font-italic" >  Z to A</span></li>  
     </ol>
         </div>
       </div>
@@ -25,11 +25,7 @@
         <hr>
         <div id="rate" class="collapse" role="tabpanel">
           <ol>
-         <li><input type="checkbox" class="5"><span class="font-italic">  5 Stars</span></li>
-         <li><input type="checkbox" class="4"><span class="font-italic">  4 Stars</span></li>
-         <li><input type="checkbox" class="3"><span class="font-italic">  3 Stars</span></li>
-         <li><input type="checkbox" class="2"><span class="font-italic">  2 Stars</span></li>   
-         <li><input type="checkbox" class="1"><span class="font-italic">  1 Star</span></li>
+         <li *ngFor="let item of ratesList"><input [checked]="isCheck(item)" (click)="click($event,item)" type="checkbox"><span class="font-italic">  {{item}} Stars</span></li>
         </ol>
         </div>
       </div>
@@ -39,8 +35,8 @@
           </a>
           <div id="price" class="collapse" role="tabpanel">
             <ol>
-            <li ><input type="checkbox" class="price-ascending"><span class="font-italic">  Low to High</span></li>
-            <li ><input type="checkbox" class="price-descending"><span class="font-italic">  High to Low</span></li>
+            <li ><input type="checkbox" class="price-ascending"  [checked]="isCheck('low')" (click)="click($event,'low')"><span class="font-italic">  Low to High</span></li>
+            <li ><input type="checkbox" class="price-descending" [checked]="isCheck('high')" (click)="click($event,'high')"><span class="font-italic">  High to Low</span></li>
             </ol>
           </div>
         </div>
