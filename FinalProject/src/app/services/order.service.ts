@@ -1,34 +1,43 @@
 import {Injectable} from '@angular/core';
+import {UserAccountService} from './userAccount.service';
+import {Order} from '../models/order';
 import {HttpHeaders, HttpClient} from '@angular/common/http';
-
-import 'rxjs/add/operator/map';
-
-
-import {Observable} from 'rxjs/Rx';
-import { Order } from '../models/order';
+import {Observable} from 'rxjs/Observable';
+import {Product} from '../models/product';
 
 @Injectable()
 export class OrderService {
+  order: Order;
+  orderId: number;
 
-  private headers = new Headers({'Content-Type': 'application/json'});
-  private ordersUrl = 'http://localhost:3000/orderss';  // URL to web api
-
-  constructor(private http: HttpClient) {
+  constructor(private userAccountService: UserAccountService, private http: HttpClient) {
   }
 
-  getOrder(id: number) {
-    const url = `${this.ordersUrl}/${id}`;
-    // console.log(url);
-    return this.http.get<OrderResponse>(url)
-      .map(response => {
-        return response.obj as Order;
+  placeOrder(order: Order) {
+    const body = JSON.stringify(order);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+    return this.http.post(`${this.userAccountService.url}/order/pl` + token, body, {headers: headers})
+      .map(result => {
+        console.log(result);
       })
-      .catch((error) => Observable.throw(error));
+      .catch(error => Observable.throw(error.error));
   }
 
+  getOrder(id: string) {
+    const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+    const url = `${this.userAccountService.url}/${id}${token}`;
+    return this.http.get<OrderRes>(url)
+      .map(response => {
+        this.orderId = response.orderId;
+        return response.obj;
+      })
+      .catch((error) => Observable.throw(error.error));
+  }
 }
 
-interface OrderResponse {
+interface OrderRes {
   message: string;
   obj: Order;
+  orderId: number;
 }

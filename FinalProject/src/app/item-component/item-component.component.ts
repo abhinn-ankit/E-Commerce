@@ -38,7 +38,6 @@ export class ItemComponentComponent implements OnInit {
           // console.log('Enter');
           for (let i = 0; i < selected.length; i++) {
             for (let j = 0; j < products.length; j++) {
-              // console.log(`${products[j].rating}+${selected[i]}`);
               if (products[j].rating === +selected[i]) {
                 this.products.push(products[j]);
               }
@@ -49,9 +48,6 @@ export class ItemComponentComponent implements OnInit {
         // noinspection TsLint
         if (selected.findIndex(value => value === ('a')) != -1) {
           this.products = this.products.sort(this.sortNameA);
-          // for(let i=0;i<this.products.length;i++){
-          //   console.log(this.products[i].name.toLowerCase().charAt(0));
-          // }
         }
         // noinspection TsLint
         if (selected.findIndex(value => value === ('z')) != -1) {

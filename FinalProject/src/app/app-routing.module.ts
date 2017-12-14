@@ -75,35 +75,15 @@ const appRoutes: Routes = [
         component: OrdersComponentComponent
       },
       {
-        // path: '/:orderID',
         path: 'orderID',
         component: ViewOrderComponent
       }
     ]
   },
-
-
-  // { path: 'home',
-  //   component: ItemComponentComponent,
-  //   outlet:'item'
-  // },
-
-  // { path: 'account/login',
-  //   component: LoginComponentComponent
-  // },
-  // { path: 'account/orders',
-  //   component: OrdersComponentComponent
-  // },
   {
     path: '**',
     component: PageNotFoundComponent
   }
-  // { path: 'hero/:id',      component: HeroDetailComponent },
-  // {
-  // path: 'heroes',
-  // component: HeroListComponent,
-  // data: { title: 'Heroes List' }
-  // },
 ];
 
 @NgModule({

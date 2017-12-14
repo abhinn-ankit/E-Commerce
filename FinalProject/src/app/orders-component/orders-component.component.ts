@@ -26,7 +26,7 @@ export class OrdersComponentComponent implements OnInit {
 
   populateOrders(){
     for(const o of this.userAccountService.user.orderList){
-      this.orderService.getOrder(o)
+      this.orderService.getOrder(o.toString())
           .subscribe(order => {
             this.orderList.push(order);
             this.total=0;
