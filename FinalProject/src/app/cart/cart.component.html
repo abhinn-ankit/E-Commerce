@@ -32,7 +32,7 @@
         </td>
         <td data-th="Subtotal" class="pro-subTotal"> ${{item?.qty*products[i]?.itemList.price.s}}</td>
         <td class="actions" data-th="">
-          <button class="btn btn-dark btn-sm btn-delete">
+          <button class="btn btn-dark btn-sm btn-delete" (click)="onDelete(item)">
             <i class="fa fa-trash-o"></i>
           </button>
         </td>
