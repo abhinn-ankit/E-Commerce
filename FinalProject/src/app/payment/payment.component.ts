@@ -13,10 +13,7 @@ export class PaymentComponent implements OnInit {
   constructor(private userAccoutService: UserAccountService) {}
 
   onSubmit() {
-    // const order = new Order(
-    //   this.userAccoutService.user.cart,
-    //
-    // );
+
 
     this.myForm.reset();
   }

@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-<tr *ngFor="let item of cart;let i = index">
+<tr *ngFor="let item of this.userAccountService.cart;let i = index">
         <td data-th="Product">
           <div class="row">
             <div class="col-sm-2 hidden-xs pro-image">
@@ -30,7 +30,7 @@
         <td data-th="Quantity"class="pro-qty">
           <input type="number" class="form-control " [value]="item?.qty" (click)="selectedQty=$event.target.value">
         </td>
-        <td data-th="Subtotal" class="pro-subTotal"> {{selectedQty*+products[i]?.itemList.price.s}}</td>
+        <td data-th="Subtotal" class="pro-subTotal"> {{item?.qty*products[i]?.itemList.price.s}}</td>
         <td class="actions" data-th="">
           <button class="btn btn-dark btn-sm btn-delete">
             <i class="fa fa-trash-o"></i>
@@ -41,7 +41,7 @@
     <tfoot>
       <tr>
         <td>
-          <a href="#" class="btn btn-info">
+          <a [routerLink]="['/home']"  class="btn btn-info">
             <i class="fa fa-angle-left"></i> CONTINUE</a>
         </td>
         <td colspan="2" class="hidden-xs"></td>

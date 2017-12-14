@@ -12,15 +12,14 @@ import {UserAccountService} from '../services/userAccount.service';
 })
 export class CartComponent implements OnInit {
 
-  cart: CartModel[] = [];
-  public products: Product[] = [];
-
+  total: number;
+  products: Product[] = [];
   constructor(private productService: ProductService, private userAccountService: UserAccountService) {
   }
 
   ngOnInit() {
+    this.userAccountService.cart = [];
     this.userAccountService.getCurrentUser();
-    console.log(this.userAccountService.user);
     this.populateProducts();
   }
 
@@ -29,10 +28,8 @@ export class CartComponent implements OnInit {
       this.productService.getProduct(c.productId)
         .subscribe(product => {
           this.products.push(product);
-          this.cart.push(c);
+          this.userAccountService.cart.push(c);
         });
     }
-    console.log(this.products);
-    console.log(this.cart);
   }
 }
