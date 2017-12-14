@@ -184,6 +184,7 @@ router.post('/order/:id', function (req, res, next) {
                     error: err
                 });
             }
+            console.log(req.body.productList);
             const order = new Order({
                 productList: req.body.productList,
                 orderDate: req.body.orderDate,
@@ -203,9 +204,16 @@ router.post('/order/:id', function (req, res, next) {
                     });
                 }
                 user.orderList.push(result._id);
+                user.update({$set: {cart:[]}}, function (err, affected) {
+                    if(err) {
+                        console.log(err);
+                    }
+                    else
+                        console.log(affected);
+                });
                 user.save();
                 return res.status(201).json({
-                    message: 'Successfully added in cart',
+                    message: 'Successfully Placed order',
                     obj: result
                 });
             });
@@ -261,7 +269,7 @@ router.get('/order/:id', function (req, res, next) {
             res.status(200).json({
                 message: 'Order Found',
                 obj: order,
-                orderID: order._id
+                orderID: order._id,
             });
         });
     });

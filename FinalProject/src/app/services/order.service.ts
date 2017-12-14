@@ -20,6 +20,7 @@ export class OrderService {
     return this.http.post(`${this.userAccountService.url}/order/pl` + token, body, {headers: headers})
       .map(result => {
         console.log(result);
+        return result;
       })
       .catch(error => Observable.throw(error.error));
   }

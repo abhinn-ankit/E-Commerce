@@ -16,6 +16,8 @@ export class CheckoutComponentComponent implements OnInit {
 
   onSubmit() {
     this.uas.getCurrentUser();
+    this.productList = this.uas.cart;
+    console.log(this.productList);
     const date = new Date();
     const order = new Order(
       this.productList,
