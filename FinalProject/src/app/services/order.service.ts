@@ -25,9 +25,9 @@ export class OrderService {
       .catch(error => Observable.throw(error.error));
   }
 
-  getProduct(id: string) {
+  getOrder(id: string) {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-    const url = `${this.userAccountService.url}/${id}${token}`;
+    const url = `${this.userAccountService.url}/order/${id}${token}`;
     return this.http.get<OrderRes>(url)
       .map(response => {
         this.orderId = response.orderId;
