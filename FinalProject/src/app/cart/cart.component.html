@@ -28,9 +28,9 @@
         <td data-th="Size" class="pro-price">{{item?.size}}</td>
 
         <td data-th="Quantity"class="pro-qty">
-          <input type="number" class="form-control " [value]="item?.qty" (click)="selectedQty=$event.target.value">
+          <input type="number" class="form-control " value="{{item?.qty}}" >
         </td>
-        <td data-th="Subtotal" class="pro-subTotal"> {{item?.qty*products[i]?.itemList.price.s}}</td>
+        <td data-th="Subtotal" class="pro-subTotal"> ${{item?.qty*products[i]?.itemList.price.s}}</td>
         <td class="actions" data-th="">
           <button class="btn btn-dark btn-sm btn-delete" (click)="onDelete(item)">
             <i class="fa fa-trash-o"></i>

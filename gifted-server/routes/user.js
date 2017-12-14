@@ -80,10 +80,18 @@ router.patch('/cart/:id', function (req, res, next) {
             for (let uc of user.cart) {
                 if (String(uc.productId) == String(cart.productId) && String(uc.size) == String(cart.size)) {
                     uc.qty = uc.qty + cart.qty;
-                    user.save();
-                    return res.status(201).json({
-                        message: 'Successfully updated product in cart',
-                        obj: uc
+                    user.save(function(err, res){
+                        if(err){
+                            console.log(err);
+                            return res.status(500).json({
+                                title: 'An error occurred',
+                                error: err
+                            });
+                        }
+                        return res.status(201).json({
+                            message: 'Successfully updated product in cart',
+                            obj: uc
+                    });
                     });
                 }
             }

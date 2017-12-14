@@ -75,7 +75,7 @@ const appRoutes: Routes = [
         component: OrdersComponentComponent
       },
       {
-        path: 'orderID',
+        path: ':orderID',
         component: ViewOrderComponent
       }
     ]
