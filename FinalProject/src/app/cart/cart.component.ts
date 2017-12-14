@@ -4,6 +4,7 @@ import {Product} from '../models/product';
 import {CartModel} from '../models/cart';
 import {UserAccountService} from '../services/userAccount.service';
 
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -34,5 +35,4 @@ export class CartComponent implements OnInit {
     console.log(this.products);
     console.log(this.cart);
   }
-
 }
