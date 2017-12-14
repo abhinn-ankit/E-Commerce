@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserAccountService } from '../services/userAccount.service';
 import { ProductService } from '../services/product.service';
 import { Product } from '../models/product';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,19 +16,27 @@ export class CartComponent implements OnInit {
     qty: number,
     productId: string
   }];
-  public products: [Product];
+  total = 0;
+  selectedQty: number;
+  products: Product[]= [];
 
-  constructor(private productService:ProductService) {}
+  constructor(private productService: ProductService, private userAccountService: UserAccountService) {}
 
-  ngOnInit() {
+  // calculate(){
     
-    this.cart = JSON.parse(localStorage.getItem('user')).cart;  
-    console.log(this.cart);
-    // this.cart.forEach(function(item, index){
-    //   this.productService
-    //       .getProduct(item.productId)
-    //       .subscribe(product => this.products.push(product))     
-    // })
-  }
+  // }
+  ngOnInit() {
+    this.userAccountService.getCurrentUser();
+    this.cart = this.userAccountService.user.cart;
+    for (let i = 0; i < this.cart.length; i++) {
+      this.productService
+          .getProduct(this.cart[i].productId)
+          .subscribe(product => {
+            console.log(product.itemList.color[0].url);
+            this.products.push(product);
+          });     
+    }
+  
 
+  }
 }
