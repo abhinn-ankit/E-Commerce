@@ -4,11 +4,12 @@ import {HttpClient} from '@angular/common/http';
 import {UserAccount} from '../models/userAccount';
 import {HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {CartModel} from '../models/cart';
 
 @Injectable()
 export class UserAccountService {
   user: UserAccount;
-
+  cart: CartModel[] = [];
   constructor(private http: HttpClient) {
   }
 
@@ -76,6 +77,7 @@ export class UserAccountService {
     let differentProduct = true;
     if (this.user['cart'].length >= 0) {
       this.user.cart.forEach(function (c) {
+        // noinspection TsLint
         if (cart.productId == c.productId && cart.size == c.size && differentProduct) {
           c.qty = cart.qty;
           console.log('It should return');
@@ -85,7 +87,7 @@ export class UserAccountService {
       });
     }
     console.log(this.user);
-    console.log(differentProduct);
+    // noinspection TsLint
     if (differentProduct)
       this.user.cart.push(cart);
   }

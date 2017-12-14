@@ -97,7 +97,7 @@ router.patch('/cart/:id', function (req, res, next) {
             }
             user.cart.push(cart);
             user.save();
-            console.log(user);
+            console.log(user.cart);
             return res.status(201).json({
                 message: 'Successfully added in cart',
                 obj: cart

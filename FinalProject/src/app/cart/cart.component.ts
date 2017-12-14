@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { UserAccountService } from '../services/userAccount.service';
-import { ProductService } from '../services/product.service';
-import { Product } from '../models/product';
+import {Component, OnInit} from '@angular/core';
+import {ProductService} from '../services/product.service';
+import {Product} from '../models/product';
+import {CartModel} from '../models/cart';
+import {UserAccountService} from '../services/userAccount.service';
+
 
 @Component({
   selector: 'app-cart',
@@ -10,33 +12,24 @@ import { Product } from '../models/product';
 })
 export class CartComponent implements OnInit {
 
-  products: Product[]=[];
-  subtotal: number;
-
-  constructor(private productService: ProductService, private authService:UserAccountService) {}
+  total: number;
+  products: Product[] = [];
+  constructor(private productService: ProductService, private userAccountService: UserAccountService) {
+  }
 
   ngOnInit() {
-    this.authService.getCurrentUser();
-    // this.authService.user.cart.forEach(function(item){
-    //   this.productService
-    //       .getProduct(item.productId)
-    //       .subscribe(product => this.products.push(product))     
-    // });
-    console.log(this.authService.user);
-    this.productService
-          .getProducts()
-          .subscribe(products => {
-            for(let j=0;j<this.authService.user.cart.length;j++){
-              for(let i=0;i<products.length;i++){
-                // console.log(products[i].productId,this.authService.user.cart[j].productId);
-                if(products[i]._id===this.authService.user.cart[j].productId) {
-                  this.products.push(products[i])
-                  // console.log(products[i]);
-                }
-              }  
-            }
-          })
-    
+    this.userAccountService.cart = [];
+    this.userAccountService.getCurrentUser();
+    this.populateProducts();
   }
-  
+
+  populateProducts() {
+    for (const c of this.userAccountService.user.cart) {
+      this.productService.getProduct(c.productId)
+        .subscribe(product => {
+          this.products.push(product);
+          this.userAccountService.cart.push(c);
+        });
+    }
+  }
 }
