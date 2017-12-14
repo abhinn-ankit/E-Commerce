@@ -1,6 +1,6 @@
 <div class="order">
   <p>Hello,
-    <b>Ivy</b>
+    <b>{{userAccountService.user.firstName}} {{userAccountService.user.lastName}}</b>
   </p>
   <p>From your account dashboard you can view your recent orders.</p>
 
@@ -25,10 +25,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>123455</td>
-          <td class="text-center">09/09/2017</td>
-          <td class="text-center">$10.99</td>
+        <tr *ngFor="let order of orderList;let i of index">
+          <td>{{this.userAccountService.user.orderList[i]}}</td>
+          <td class="text-center">{{order.orderDate}}</td>
+          <td class="text-center">${{orderPrice[i]}}</td>
           <td class="text-center">
             <a [routerLink]="['../orderID']">
               <button type="submit" class="btn btn-success">view</button>
