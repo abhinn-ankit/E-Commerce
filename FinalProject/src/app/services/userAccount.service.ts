@@ -61,6 +61,22 @@ export class UserAccountService {
       });
   }
 
+  deleteCart(cart) {
+    const body = JSON.stringify(cart);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+    return this.http.patch<CartResponse>(`${this.url}/removeCartItem/a` + token, body, {headers: headers})
+      .map(result => {
+        console.log(result);
+        console.log(this.user);
+        return result;
+      })
+      .catch(error => {
+        console.error(error.error);
+        return Observable.throw(error.error);
+      });
+  }
+
   getCurrentUser() {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     return this.http.get<UserResponse>(`${this.url}/getUser` + token)
@@ -93,6 +109,23 @@ export class UserAccountService {
     // noinspection TsLint
     if (differentProduct)
       this.user.cart.push(cart);
+  }
+
+  deleteCartItem(cart) {
+    console.log(this.user['cart']);
+    let differentProduct = true;
+    if (this.user['cart'].length >= 0) {
+      for ( const c of this.user.cart) {
+        // noinspection TsLint
+        if (cart.productId == c.productId && cart.size == c.size && differentProduct) {
+          this.user.cart.splice(this.user.cart.indexOf(cart), 1);
+          console.log('It should return');
+          differentProduct = false;
+          return;
+        }
+      }
+    }
+    console.log(this.user);
   }
 
   populateProducts(products: Product[]) {

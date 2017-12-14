@@ -98,6 +98,77 @@ router.patch('/cart/:id', function (req, res, next) {
     });
 });
 
+router.patch('/modifyCartItem/:id', function (req, res, next) {
+    jwt.verify(req.query.token, 'secret', function (err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not Authenicated',
+                error: err
+            });
+        }
+        User.findById(decoded.user._id, function (err, user) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            const cart = new Cart({
+                size: req.body.size,
+                qty: req.body.qty,
+                productId: req.body.productId
+            });
+            for (let uc of user.cart) {
+                if (String(uc.productId) == String(cart.productId) && String(uc.size) == String(cart.size)) {
+                    uc.qty = uc.qty - cart.qty;
+                    user.save();
+                    return res.status(201).json({
+                        message: 'Successfully updated product in cart',
+                        obj: uc
+                    });
+                }
+            }
+        });
+    });
+});
+
+router.patch('/removeCartItem/:id', function (req, res, next) {
+    jwt.verify(req.query.token, 'secret', function (err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not Authenicated',
+                error: err
+            });
+        }
+        User.findById(decoded.user._id, function (err, user) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            const cart = new Cart({
+                size: req.body.size,
+                qty: req.body.qty,
+                productId: req.body.productId
+            });
+            for (let uc of user.cart) {
+                if (String(uc.productId) == String(cart.productId) && String(uc.size) == String(cart.size)) {
+                    console.log(user.cart);
+                    user.cart.splice(user.cart.indexOf(cart), 1);
+                    console.log(user.cart);
+                    user.save();
+                    console.log(user);
+                    return res.status(201).json({
+                        message: 'Successfully removed product in cart',
+                        obj: uc
+                    });
+                }
+            }
+        });
+    });
+});
+
 router.post('/order/:id', function (req, res, next) {
     jwt.verify(req.query.token, 'secret', function (err, decoded) {
         if (err) {
