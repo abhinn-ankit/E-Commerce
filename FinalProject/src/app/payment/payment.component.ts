@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Order} from '../models/order';
 import {UserAccountService} from '../services/userAccount.service';
+import {OrderService} from "../services/order.service";
 
 @Component({
   selector: 'app-payment',
@@ -10,11 +11,12 @@ import {UserAccountService} from '../services/userAccount.service';
 })
 export class PaymentComponent implements OnInit {
   myForm: FormGroup;
-  constructor(private userAccoutService: UserAccountService) {}
+  constructor(private userAccoutService: UserAccountService, private orderService: OrderService) {}
 
   onSubmit() {
+    this.orderService.placeOrder(this.orderService.order).subscribe(
 
-
+    );
     this.myForm.reset();
   }
 

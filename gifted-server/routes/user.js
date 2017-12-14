@@ -166,4 +166,34 @@ router.get('/:id', function (req, res, next) {
     });
 });
 
+router.get('/order/:id', function (req, res, next) {
+    jwt.verify(req.query.token, 'secret', function (err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not Authenicated',
+                error: err
+            });
+        }
+        Order.findById(req.query.id, function (err, order) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                });
+            }
+            if (!order) {
+                return res.status(500).json({
+                    title: 'No order found',
+                    error: {message: "Order not found"}
+                });
+            }
+            res.status(200).json({
+                message: 'Order Found',
+                obj: order,
+                orderID: order._id
+            });
+        });
+    });
+});
+
 module.exports = router;
