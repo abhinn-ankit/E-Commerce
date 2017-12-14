@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UserAccountService } from '../services/userAccount.service';
-import { ProductService } from '../services/product.service';
-import { Product } from '../models/product';
+import {Component, OnInit} from '@angular/core';
+import {ProductService} from '../services/product.service';
+import {Product} from '../models/product';
+import {CartModel} from '../models/cart';
+import {UserAccountService} from '../services/userAccount.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,24 +11,28 @@ import { Product } from '../models/product';
 })
 export class CartComponent implements OnInit {
 
-  public cart: [{
-    size: string,
-    qty: number,
-    productId: string
-  }];
-  public products: [Product];
+  cart: CartModel[] = [];
+  public products: Product[] = [];
 
-  constructor(private productService:ProductService) {}
+  constructor(private productService: ProductService, private userAccountService: UserAccountService) {
+  }
 
   ngOnInit() {
-    
-    this.cart = JSON.parse(localStorage.getItem('user')).cart;  
+    this.userAccountService.getCurrentUser();
+    console.log(this.userAccountService.user);
+    this.populateProducts();
+  }
+
+  populateProducts() {
+    for (const c of this.userAccountService.user.cart) {
+      this.productService.getProduct(c.productId)
+        .subscribe(product => {
+          this.products.push(product);
+          this.cart.push(c);
+        });
+    }
+    console.log(this.products);
     console.log(this.cart);
-    // this.cart.forEach(function(item, index){
-    //   this.productService
-    //       .getProduct(item.productId)
-    //       .subscribe(product => this.products.push(product))     
-    // })
   }
 
 }

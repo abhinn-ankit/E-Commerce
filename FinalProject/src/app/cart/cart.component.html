@@ -1,3 +1,4 @@
+<script src="cart.component.ts"></script>
 <div class="container-fluid mt-5">
   <table id="cart" class="table table-hover table-condensed ">
     <thead>
@@ -9,19 +10,19 @@
         <th style="width:10%"></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngFor="let i of this.product?.length">
       <tr>
         <td data-th="Product">
           <div class="row">
             <div class="col-sm-2 hidden-xs pro-image">
-              <img src="http://placehold.it/100x100" alt="..." class="img-responsive" />
+              <img src="http://placehold.it/100x100" alt="..." class="img-responsive" style="width: 100px; height: 100px"/>
             </div>
             <div class="col-sm-10">
-              <h4 class="pro-name">Product 1</h4>
+              <h4 class="pro-name">{{this.product.name}}</h4>
             </div>
           </div>
         </td>
-        <td data-th="Price" class="pro-price">$1.99</td>
+        <td data-th="Price" class="pro-price" >{{this.product.price[this.cart[i].size]}}</td>
         <td data-th="Quantity"class="pro-qty">
           <input type="number" class="form-control " value="{{cart.qty}}">
         </td>
