@@ -154,9 +154,9 @@ router.patch('/removeCartItem/:id', function (req, res, next) {
             });
             for (let uc of user.cart) {
                 if (String(uc.productId) == String(cart.productId) && String(uc.size) == String(cart.size)) {
-                    console.log(user.cart);
+                    console.log("Before \n\n" + user.cart);
                     user.cart.splice(user.cart.indexOf(cart), 1);
-                    console.log(user.cart);
+                    console.log("After\n\n" + user.cart);
                     user.save();
                     console.log(user);
                     return res.status(201).json({

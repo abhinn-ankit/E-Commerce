@@ -34,7 +34,6 @@ let orderSchema = new Schema({
         type: String,
         required: true
     },
-    phoneNumber: Number,
     zipCode: {
         type: String,
         required: true
