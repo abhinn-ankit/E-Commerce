@@ -20,7 +20,7 @@ export class OrdersComponentComponent implements OnInit {
 
   ngOnInit() {
     this.userAccountService.getCurrentUser();
-    // console.log(this.userAccountService.user.);
+    console.log(this.userAccountService.user);
     this.populateOrders();
   }
 
