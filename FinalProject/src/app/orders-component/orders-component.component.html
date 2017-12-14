@@ -30,7 +30,7 @@
           <td class="text-center">{{order.orderDate}}</td>
           <td class="text-center">${{orderPrice[i]}}</td>
           <td class="text-center">
-            <a [routerLink]="['../orderID']">
+            <a [routerLink]="['..', this.userAccountService.user.orderList[i]]">
               <button type="submit" class="btn btn-success">view</button>
             </a>
           </td>
