@@ -20,16 +20,6 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.userAccountService.cart = [];
     this.userAccountService.getCurrentUser();
-    this.populateProducts();
-  }
-
-  populateProducts() {
-    for (const c of this.userAccountService.user.cart) {
-      this.productService.getProduct(c.productId)
-        .subscribe(product => {
-          this.products.push(product);
-          this.userAccountService.cart.push(c);
-        });
-    }
+    this.userAccountService.populateProducts(this.products);
   }
 }

@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ListOfProducts, Order} from '../models/order';
+import {UserAccountService} from '../services/userAccount.service';
+import {Router} from '@angular/router';
+import {OrderService} from '../services/order.service';
 
 @Component({
   selector: 'app-checkout-component',
@@ -8,12 +12,27 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class CheckoutComponentComponent implements OnInit {
   myForm: FormGroup;
+  productList: Array<ListOfProducts>;
 
   onSubmit() {
+    this.uas.getCurrentUser();
+    const date = new Date();
+    const order = new Order(
+      this.productList,
+      date,
+      this.uas.userId,
+      this.myForm.value.firstName + ' ' + this.myForm.value.lastName,
+      this.myForm.value.state,
+      this.myForm.value.zip,
+      this.myForm.value.address1,
+      this.myForm.value.address2
+    );
+    this.orderService.order = order;
+    this.router.navigateByUrl('/payment');
     this.myForm.reset();
   }
 
-  constructor() {
+  constructor(private uas: UserAccountService, private router: Router, private orderService: OrderService) {
   }
 
   ngOnInit() {
@@ -32,9 +51,6 @@ export class CheckoutComponentComponent implements OnInit {
         Validators.required,
         Validators.pattern('[0-9]{5}')
       ])
-
     });
   }
-
-
 }

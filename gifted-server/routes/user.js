@@ -159,7 +159,8 @@ router.get('/:id', function (req, res, next) {
             }
             res.status(201).json({
                 message: 'Current User',
-                obj: user
+                obj: user,
+                userId: user._id
             });
         });
     });

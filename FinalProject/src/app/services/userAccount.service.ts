@@ -5,19 +5,21 @@ import {UserAccount} from '../models/userAccount';
 import {HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {CartModel} from '../models/cart';
+import {ProductService} from './product.service';
+import {Product} from '../models/product';
 
 @Injectable()
 export class UserAccountService {
   user: UserAccount;
   cart: CartModel[] = [];
-  constructor(private http: HttpClient) {
+  userId: string;
+  constructor(private http: HttpClient, private productService: ProductService) {
   }
 
   url = 'http://localhost:3000/user';
 
   signUp(user: UserAccount) {
     const body = JSON.stringify(user);
-    console.log(body);
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post(this.url, body, {headers: headers})
       .map(result => {
@@ -65,6 +67,7 @@ export class UserAccountService {
       .map(data => {
         localStorage.setItem('user', JSON.stringify(data.obj));
         this.user = data.obj;
+        this.userId = data.userId;
       })
       .catch(error => {
         console.error(error.error);
@@ -92,11 +95,22 @@ export class UserAccountService {
       this.user.cart.push(cart);
   }
 
+  populateProducts(products: Product[]) {
+    for (const c of this.user.cart) {
+      this.productService.getProduct(c.productId)
+        .subscribe(product => {
+          products.push(product);
+          this.cart.push(c);
+        });
+    }
+  }
+
 }
 
 interface UserResponse {
   message: string;
   obj: UserAccount;
+  userId: string;
 }
 
 interface CartResponse {

@@ -4,7 +4,7 @@
       <h4 class="text-uppercase text-danger font-weight-bold text-center mt-5">Shipping Address</h4>
       <p class="font-italic ml-3 ">Help us keep your account safe and secure, please verify your billing information.</p>
     </div>
-    <form class="panel-body col-md-10 m-auto " [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <form class="panel-body col-md-10 m-auto " [formGroup]="myForm" (ngSubmit)="onSubmit()" [action]="['../payment']">
       <div class="row">
         <div class="left col-md-5 ml-md-5">
           <strong>First Name:</strong>
@@ -26,10 +26,10 @@
           <strong>Phone:</strong>
           <input type="text" name="phone" class="form-control mb-3 mt-3" placeholder="617-345-9654" formControlName="phone" />
         </div>
-        <a [routerLink]="['../payment']" class="mx-auto my-3">
-        <button type="submit" class="btn btn-primary btn-submit-fix btn-lg btn-success" [disabled]="!myForm.valid">Continue to pay</button>
+        <!--<a [routerLink]="['../payment']" class="mx-auto my-3">-->
+        <button type="submit" class="btn btn-primary btn-submit-fix btn-lg btn-success mx-auto" >Continue to pay</button>
         <!-- [disabled]="!myForm.valid" -->
-        </a>
+        <!--</a>-->
       </div>
     </form>
   </div>
