@@ -7,19 +7,19 @@
       <div class="row">
         <div class="col-sm-4 mt-sm-5 d-flex flex-column">
           <h6 class="account-order text-uppercase">Order ID</h6>
-          <p>#9087098</p>
+          <p>{{orderID}}</p>
         </div>
         <div class="col-sm-4 mt-sm-5 d-flex flex-column align-items-sm-center">
           <h6 class="order-date text-uppercase">Order Placed</h6>
-          <p>October</p>
+          <p>{{order?.orderDate | date: "M/d/y HH:mm"}}</p>
         </div>
         <div class="col-sm-4 mt-sm-5 d-flex flex-column align-items-sm-end">
           <h6 class="account-address text-uppercase text-sm-right">Shipping Address</h6>
           <div>
-            <p class="First-line mb-1  text-sm-right">46 Westland Ave</p>
-            <p class="Second-line mb-1  text-sm-right">#6</p>
-            <p class="city-sate mb-1  text-sm-right">MA Boston</p>
-            <p class="postal-code text-sm-right">02115</p>
+            <p class="First-line mb-1  text-sm-right">{{order?.addressLine1}}</p>
+            <p class="Second-line mb-1  text-sm-right">{{order?.addressLine2}}</p>
+            <p class="city-sate mb-1  text-sm-right">{{order?.state}}</p>
+            <p class="postal-code text-sm-right">{{order?.zipCode}}</p>
           </div>
         </div>
       </div>
@@ -35,28 +35,28 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
+      <tr *ngFor="let product of products;let i=index;">
         <td data-th="Product">
           <div class="row">
-            <div class="col-sm-2 hidden-xs pro-image"><img src="http://placehold.it/100x100" alt="..."
+            <div class="col-sm-2 hidden-xs pro-image"><img src="{{product.itemList.color[0].url}}" style="width: 100px; height: 100px" alt="..."
                                                            class="img-responsive"/></div>
             <div class="col-sm-10">
-              <h4 class="pro-name">Product 1</h4>
+              <h4 class="pro-name">{{product.name}}</h4>
             </div>
           </div>
         </td>
-        <td data-th="Price">$1.99</td>
+        <td data-th="Price">${{product.itemList.price.s}}</td>
         <td data-th="Quantity">
-          2
+          {{order.productList[0].qty}}
         </td>
-        <td data-th="Subtotal" class="text-center">1.99</td>
+        <td data-th="Subtotal" class="text-center">${{product.itemList.price.s*order.productList[i].qty}}</td>
       </tr>
       </tbody>
       <tfoot>
       <tr>
 
         <td colspan="3" class="hidden-xs"></td>
-        <td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
+        <!-- <td class="hidden-xs text-center"><strong>Total ${{total}}</strong></td> -->
 
       </tr>
       </tfoot>

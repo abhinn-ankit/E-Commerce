@@ -3,6 +3,7 @@ import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { OrderService } from '../services/order.service';
 import { ProductService } from '../services/product.service';
 import { Product } from '../models/product';
+import { Order } from '../models/order';
 
 @Component({
   selector: 'app-view-order',
@@ -11,8 +12,10 @@ import { Product } from '../models/product';
 })
 export class ViewOrderComponent implements OnInit {
 
-  orderID:number;
-  products: Product[];
+  orderID:string;
+  products: Product[] = [];
+  order:Order;
+  total:number;
 
   constructor(private route: ActivatedRoute,
               private orderService: OrderService,
@@ -24,17 +27,26 @@ export class ViewOrderComponent implements OnInit {
     .switchMap((params: ParamMap) => params.getAll('orderID'))
     .subscribe(orderID => {
       console.log(orderID);
-      this.orderID = +orderID;
+      this.orderID = orderID;
       this.orderService.getOrder(orderID)
       .subscribe(order => {
+        console.log(order);
+        this.order = order;
         for(let i=0;i<order.productList.length;i++){
           this.productService.getProduct(order.productList[i].productId)
               .subscribe(product => {
+                console.log(product);
                 this.products.push(product);
               })
         }
       })
     })
+    // this.total = 0;
+    // let j = 0;
+    // for(let product of this.products){
+    //   this.total += product.itemList.price.s*this.order.productList[j].qty;
+    //   j++;
+    // }
   }
 
 }

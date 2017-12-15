@@ -23,6 +23,7 @@ import {UserAccountService} from './services/userAccount.service';
 import { AuthService } from './services/auth.service';
 import {SharedService} from './services/shared.service';
 import { OrderService } from './services/order.service';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { OrderService } from './services/order.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ProductService, UserAccountService, AuthService, SharedService,OrderService],
+  providers: [DatePipe,ProductService, UserAccountService, AuthService, SharedService,OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
