@@ -17,18 +17,14 @@
             <strong>Order Date</strong>
           </td>
           <td class="text-center">
-            <strong>Total price</strong>
-          </td>
-          <td class="text-center">
             <strong>View</strong>
           </td>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let order of orderList;let i of index">
-          <td>{{this.userAccountService.user.orderList[i]}}</td>
-          <td class="text-center">{{order.orderDate}}</td>
-          <td class="text-center">${{orderPrice[i]}}</td>
+        <tr *ngFor="let order of orderList;let i = index">
+          <td>{{this.userAccountService.user.orderList[i].substring(0,6)}}</td>
+          <td class="text-center">{{order.orderDate | date: "M/d/y HH:mm"}}</td>
           <td class="text-center">
             <a [routerLink]="['..', this.userAccountService.user.orderList[i]]">
               <button type="submit" class="btn btn-success">view</button>

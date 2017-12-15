@@ -9,6 +9,6 @@ export class UserAccount {
                 qty: number,
                 productId: string
               }],
-              public orderList?: number[]) {
+              public orderList?: string[]) {
   }
 }

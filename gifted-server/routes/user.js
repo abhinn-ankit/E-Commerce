@@ -261,7 +261,7 @@ router.get('/order/:id', function (req, res, next) {
                 error: err
             });
         }
-        Order.findById(req.query.id, function (err, order) {
+        Order.findById(req.params.id, function (err, order) {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',
