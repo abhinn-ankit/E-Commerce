@@ -22,10 +22,9 @@ let userSchema = new Schema({
         required: true,
     },
     orderList: [{
-        orderID: {
-            type: Schema.Types.ObjectId,
-            ref: 'Order'
-        }
+        type: Schema.Types.ObjectId,
+        ref: 'Order',
+        sparse: true
     }],
     cart: [{
         size: String,

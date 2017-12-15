@@ -118,7 +118,8 @@ export class UserAccountService {
       for ( const c of this.user.cart) {
         // noinspection TsLint
         if (cart.productId == c.productId && cart.size == c.size && differentProduct) {
-          this.user.cart.splice(this.user.cart.indexOf(cart), 1);
+          console.log('Index   ' + this.user.cart.indexOf(c));
+          this.user.cart.splice(this.user.cart.indexOf(c), 1);
           console.log('It should return');
           differentProduct = false;
           return;

@@ -31,11 +31,10 @@ export class PaymentComponent implements OnInit {
       holderName: new FormControl(null, Validators.required),
       cardNumber: new FormControl(null, [
         Validators.required,
-        Validators.pattern('[0-9]{12}')
+        Validators.pattern('[0-9]{16}')
       ]),
       cvv: new FormControl(null, [
-        Validators.required,
-        Validators.pattern('[0-9]{3}')
+        Validators.required
       ])
 
     });

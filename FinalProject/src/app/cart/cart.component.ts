@@ -25,9 +25,10 @@ export class CartComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
+          this.userAccountService.getCurrentUser();
           this.userAccountService.deleteCartItem(data.obj);
-          location.reload(true);
           this.userAccountService.populateProducts(this.products);
+          window.location.replace('/cart');
         },
         error => console.error(error)
       );

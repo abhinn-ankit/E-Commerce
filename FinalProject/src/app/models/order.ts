@@ -6,7 +6,7 @@ export class Order {
               public receiverName: string,
               public state: string,
               public zipCode: number,
-              public phoneNumber: number,
+              public contactNumber: string,
               public addressLine1: string,
               public addressLine2?: string) {
   }
