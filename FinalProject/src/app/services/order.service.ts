@@ -26,8 +26,9 @@ export class OrderService {
   }
 
   getOrder(id: string) {
+    const orderUrl = '/order/';
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-    const url = `${this.userAccountService.url}/order/${id}${token}`;
+    const url = `${this.userAccountService.url}${orderUrl}${id}${token}`;
     return this.http.get<OrderRes>(url)
       .map(response => {
         this.orderId = response.orderId;
