@@ -39,7 +39,6 @@ export class DetailComponent implements OnInit {
           .getProduct(productID)
           .subscribe(product => {
             this.product = product;
-            console.log(this.product);
           });
       });
   }
@@ -51,7 +50,6 @@ export class DetailComponent implements OnInit {
   onAdd() {
     this.userAccountService.getCurrentUser();
     const cart = new CartModel( this.selectedSize, this.selectedQty, this.productID );
-    console.log(this.userAccountService.user);
     if ( !this.selectedSize || !this.selectedQty ) {
       alert('You missed something');
       return;
@@ -59,12 +57,10 @@ export class DetailComponent implements OnInit {
     this.userAccountService.addProductToCart(cart)
       .subscribe(
         data => {
-          console.log(data);
           this.userAccountService.updateCart(data.obj);
         },
         error => console.error(error)
       );
-    console.log(this.userAccountService.user);
   }
 
 }

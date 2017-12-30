@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Order} from '../models/order';
 import {UserAccountService} from '../services/userAccount.service';
 import {OrderService} from '../services/order.service';
 
@@ -12,7 +11,7 @@ import {OrderService} from '../services/order.service';
 export class PaymentComponent implements OnInit {
   myForm: FormGroup;
 
-  constructor(private userAccoutService: UserAccountService, private orderService: OrderService) {
+  constructor(private userAccountService: UserAccountService, private orderService: OrderService) {
   }
 
   onSubmit() {
@@ -36,7 +35,6 @@ export class PaymentComponent implements OnInit {
       cvv: new FormControl(null, [
         Validators.required
       ])
-
     });
   }
 

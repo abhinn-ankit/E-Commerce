@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../services/product.service';
 import {Product} from '../models/product';
-import {CartModel} from '../models/cart';
 import {UserAccountService} from '../services/userAccount.service';
 
 
@@ -14,31 +13,32 @@ export class CartComponent implements OnInit {
 
   total: number;
   products: Product[] = [];
-  constructor(private productService: ProductService, private userAccountService: UserAccountService) {
+  constructor(private productService: ProductService,
+              private userAccountService: UserAccountService) {
   }
 
   onDelete(cart) {
     this.userAccountService.getCurrentUser();
-    console.log(cart);
-
     this.userAccountService.deleteCart(cart)
       .subscribe(
         data => {
           console.log(data);
-          this.userAccountService.getCurrentUser();
           this.userAccountService.deleteCartItem(data.obj);
+          this.userAccountService.cart = [];
+          this.products = [];
           this.userAccountService.populateProducts(this.products);
-          window.location.replace('/cart');
         },
         error => console.error(error)
       );
-    console.log(this.userAccountService.user);
   }
 
   ngOnInit() {
     this.userAccountService.cart = [];
-    this.userAccountService.getCurrentUser();
-    console.log(this.userAccountService.cart);
-    this.userAccountService.populateProducts(this.products);
+    this.userAccountService.getCurrentUser()
+      .subscribe(
+        () => {
+          this.userAccountService.populateProducts(this.products);
+        }
+      );
   }
 }

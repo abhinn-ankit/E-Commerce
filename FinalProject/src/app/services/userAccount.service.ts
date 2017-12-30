@@ -51,8 +51,7 @@ export class UserAccountService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     return this.http.patch<CartResponse>(`${this.url}/cart/a` + token, body, {headers: headers})
       .map(result => {
-        console.log(result);
-        console.log(this.user);
+        this.getCurrentUser();
         return result;
       })
       .catch(error => {
@@ -67,8 +66,6 @@ export class UserAccountService {
     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
     return this.http.patch<CartResponse>(`${this.url}/removeCartItem/a` + token, body, {headers: headers})
       .map(result => {
-        console.log(result);
-        console.log(this.user);
         return result;
       })
       .catch(error => {
@@ -105,7 +102,6 @@ export class UserAccountService {
         }
       });
     }
-    console.log(this.user);
     // noinspection TsLint
     if (differentProduct)
       this.user.cart.push(cart);
@@ -126,7 +122,6 @@ export class UserAccountService {
         }
       }
     }
-    console.log(this.user);
   }
 
   populateProducts(products: Product[]) {

@@ -4,7 +4,6 @@ import {ProductService} from '../services/product.service';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
-import {filter} from 'rxjs/operator/filter';
 import * as moment from 'moment';
 
 @Component({
@@ -15,7 +14,6 @@ import * as moment from 'moment';
 export class ItemComponentComponent implements OnInit {
 
   products: Product[] = [];
-  searchproducts: Product[] = [];
   type: string;
   filter: string;
   searchName: string;
@@ -189,7 +187,6 @@ export class ItemComponentComponent implements OnInit {
                 // console.log(products[i].rating)
                 if (moment(products[i].addedTime).isAfter(currentTime, 'day') !== true) { // false
                   this.products.push(products[i]);
-                  console.log(currentTime + products[i].addedTime);
                 }
               }
             }

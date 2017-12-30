@@ -152,13 +152,13 @@ router.patch('/removeCartItem/:id', function (req, res, next) {
                 qty: req.body.qty,
                 productId: req.body.productId
             });
-            for (let uc of user.cart) {
-                if (String(uc.productId) == String(cart.productId) && String(uc.size) == String(cart.size)) {
+            for ( let i = 0; i < user.cart.length; i++ ) {
+                if (String(user.cart[i].productId) == String(cart.productId) && String(user.cart[i].size) == String(cart.size)) {
                     console.log("Before \n\n" + user.cart);
-                    user.cart.splice(user.cart.indexOf(cart), 1);
+                    let uc = user.cart[i];
+                    user.cart.splice(i, 1);
                     console.log("After\n\n" + user.cart);
                     user.save();
-                    console.log(user);
                     return res.status(201).json({
                         message: 'Successfully removed product in cart',
                         obj: uc
