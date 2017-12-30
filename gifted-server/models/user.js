@@ -34,6 +34,8 @@ let userSchema = new Schema({
             ref: 'Product'
         }
     }]
+}, {
+    usePushEach: true
 });
 
 userSchema.plugin(mongooseUniqueValidator);

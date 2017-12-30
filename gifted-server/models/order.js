@@ -45,6 +45,8 @@ let orderSchema = new Schema({
     addressLine2: {
         type: String
     }
+}, {
+    usePushEach: true
 });
 
 orderSchema.plugin(mongooseUniqueValidator);
