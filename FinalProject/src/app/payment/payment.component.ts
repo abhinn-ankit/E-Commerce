@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserAccountService} from '../services/userAccount.service';
-import {OrderService} from '../services/order.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserAccountService } from '../services/userAccount.service';
+import { OrderService } from '../services/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -11,7 +12,7 @@ import {OrderService} from '../services/order.service';
 export class PaymentComponent implements OnInit {
   myForm: FormGroup;
 
-  constructor(private userAccountService: UserAccountService, private orderService: OrderService) {
+  constructor(private userAccountService: UserAccountService, private orderService: OrderService, private router: Router) {
   }
 
   onSubmit() {
@@ -19,6 +20,11 @@ export class PaymentComponent implements OnInit {
       data => {
         console.log(data);
         alert('Order Placed!!');
+        this.userAccountService.getCurrentUser()
+          .subscribe(() => {
+            window.location.replace('/home');
+            this.router.navigateByUrl('/');
+          });
       },
       error => console.error(error)
     );
