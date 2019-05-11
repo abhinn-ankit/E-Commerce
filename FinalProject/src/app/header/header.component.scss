@@ -4,8 +4,8 @@
 }
 
 header {
-  background-color: rgba(255, 255, 255, 0.7);
   nav {
+    background-color: rgba(255, 255, 255, 1);
     font-size: 14px;
     width: 100%;
     border-bottom: 1px solid lightgray;
@@ -94,10 +94,11 @@ header {
 
   .search-navbar {
     display: flex;
-    padding: 5px;
-    background-color: rgba(245,245,245,0.6);
+    justify-content: flex-end;
+    background-color: transparent;
     > form {
-      justify-content: flex-end;
+      left: -55px;
+      background-color: rgba(245,245,245,1);
       flex-wrap: nowrap;
       .form-control {
         &:focus {
@@ -117,7 +118,6 @@ header {
       }
     }
   }
-
 
   //Small navbar styles
 
@@ -197,8 +197,8 @@ header {
     }
     .search-navbar {
       display: flex;
-      padding: 10px;
       > form {
+        left: -80px;
         flex-wrap: nowrap;
         > button {
           height: 100%;
