@@ -1,25 +1,39 @@
-Gifted Shopping Website
+# Gifted Shopping Website
 
-Angular App is in Final-project folder.       --------- Folder 1
+## Technology Stack
+
+### Requirements
+* npm
+* angular cli
+* mongodb 3.6
+
+#### 1. Frontend
+* Angular 4
+* Bootstrap 4
+
+#### 2. Backend
+* Node.js
+* MongoDB 3.6
+
+## Build Instructions
+
+Angular App is in Final-project folder.       --------- Folder 1\
 Express server is in gifted-server folder.    --------- Folder 2
-Mongo Database is in data/db folder.          --------- Folder 3
 
-NodeJs, npm Angular CLI and mongodb shell client is required. If you don't have it please install that first.
+**Steps**
 
+Install dependencies by running the following command in Folder 1 and Folder 2
 
-First clone the repo, then follow the stpes:
+`npm install`
 
-Run -
+Execute the following commands in order to avoid any errors
 
-"npm install" inside Folder 1 and Folder 2.
+1) Extract data from the zip file in the same folder
+2) Run the following command
+  `mongod --dbpath ./data/db`
+3) Go to Folder 2 and run:
+  `DEBUG=gifted-server:* npm start`
+4) Go to Folder 1 and run:
+  `npm start`
 
-After wards we need to run the servers.(Please maintain the sequence to avoid any errors)
-
-1) Run the following command
-  mongod --dbpath "Path_to_Folder 3"
-2) Traverse to Folder 2 and run:
-  DEBUG=gifted-server:* npm start
-3) Traverse to Folder 1 and run:
-  ng serve.
-
-Thats IT!!
+Browse the app on http://localhost:4200
