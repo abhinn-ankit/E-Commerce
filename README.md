@@ -29,11 +29,11 @@ Install dependencies by running the following command in Folder 1 and Folder 2
 Execute the following commands in order to avoid any errors
 
 1) Extract data from the zip file in the same folder
-2) Run the following command
+2) Run the following command\
   `mongod --dbpath ./data/db`
-3) Go to Folder 2 and run:
+3) Go to Folder 2 and execute:\
   `DEBUG=gifted-server:* npm start`
-4) Go to Folder 1 and run:
+4) Go to Folder 1 and execute:\
   `npm start`
 
 Browse the app on http://localhost:4200
