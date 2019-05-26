@@ -1,4 +1,5 @@
-# Gifted Shopping Website
+# Outfitted
+An e-commerce website for clothes.
 
 ## Technology Stack
 
