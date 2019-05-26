@@ -70,8 +70,8 @@
           <input class="form-control" type="search" placeholder="Search" aria-label="Search" (focus)="changeBorder()"
                  (focusout)="changeBorder()" [ngStyle]="borderBottomStyle()" [(ngModel)]="searchResult" [ngModelOptions]="{standalone: true}">
           <a [routerLink]="['search']"  [queryParams]='{name:searchResult}'>
-          <button class="navbar-form-button" type="submit" #searchBarBtn  [ngStyle]="borderBottomStyle()"><i
-            class="fa fa-search text-secondary" aria-hidden="true"></i></button></a>
+          <button class="navbar-form-button" type="button" #searchBarBtn  [ngStyle]="borderBottomStyle()">
+            <i class="fa fa-search text-secondary" aria-hidden="true"></i></button></a>
         </form>
       </div>
     </div><!-- row -->
