@@ -1,4 +1,4 @@
-# Outfitted
+# Style It Right
 An e-commerce website for clothes.
 
 ## Technology Stack
